@@ -1,5 +1,4 @@
 const fs = require("fs"); //import
-
 // Inicializa products como un arreglo vacío.
 class ProductManager {
   constructor(fileName) {
