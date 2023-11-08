@@ -2,9 +2,9 @@ const fs = require("fs"); //import
 // Inicializa products como un arreglo vacío.
 class ProductManager {
   constructor(fileName) {
-    this.id = 0;
+    this.id = 1; //lo inicializo en 1 porque es la cantidad de id que tengo
     this.path = fileName;
-   //aqui iba un this.products = []
+    //aqui iba un this.products = []
     if (fs.existsSync(this.path)) {
       try {
         let productFile = fs.readFileSync(this.path, "utf-8");
@@ -14,7 +14,7 @@ class ProductManager {
       }
     } else {
       this.products = [];
-   }
+    }
   }
 
   //agrega un producto
@@ -59,18 +59,18 @@ class ProductManager {
     return this.products;
   }
 
-  async saveFileProducts (){
-      try {
-        await fs.promises.writeFile(
-          this.path,
-          JSON.stringify(this.products, null, "\t")
-        );
-        return true;
-      } catch (error) {
-        console.log(error);
-        return false;
-      }
-  };
+  async saveFileProducts() {
+    try {
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(this.products, null, "\t")
+      );
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 
   //get product by id
   getProductById(id) {
@@ -80,6 +80,39 @@ class ProductManager {
     }
     return product;
   }
+
+  async updateProduct(id) {
+    const newId = this.isCodeRepeated(code);
+    if (newId) {
+      this.updateProduct.saveFileProducts;
+      return;
+    }
+    this.products.push({
+      title,
+      description,
+      price,
+      thumbnail,
+      code,
+      stock,
+      id: this.id,
+    });
+    await this.saveFileProducts();
+  }
+  
+  async deleteProduct(id) {
+      const productA = this.product.find((p) => p.id == id);
+  
+      if (productA) {
+        const deleteProducts = this.product.filter((p) => p.id != id);
+  
+        this.product = deleteProducts;
+  
+        await this.saveFile();
+      } else {
+      console.log("[ERROR]");
+    }
+  }
 }
+
 const productManagerTest = new ProductManager("./pruebas.txt"); // instancia de la clase
 console.log(productManagerTest.getProducts());
