@@ -1,8 +1,8 @@
+const { v4: uuidv4 } = require("uuid"); //paquete para generar ids unicos
 const fs = require("fs"); //import
 // Inicializa products como un arreglo vacío.
 class ProductManager {
   constructor(fileName) {
-    this.id = 1; //lo inicializo en 1 porque es la cantidad de id que tengo
     this.path = fileName;
     //aqui iba un this.products = []
     if (fs.existsSync(this.path)) {
@@ -20,8 +20,8 @@ class ProductManager {
   //agrega un producto
   async addProduct(title, description, price, thumbnail, code, stock) {
     //id autoincrementable
-    this.id++;
-    // Validación de propiedades
+    const id = this.products.length + 1;
+ 
     if (
       !title ||
       !description ||
@@ -81,34 +81,33 @@ class ProductManager {
     return product;
   }
 
-  async updateProduct(id) {
-    const newId = this.isCodeRepeated(code);
-    if (newId) {
-      this.updateProduct.saveFileProducts;
-      return;
-    }
-    this.products.push({
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
-      id: this.id,
-    });
-    await this.saveFileProducts();
-  }
-  
-  async deleteProduct(id) {
-      const productA = this.product.find((p) => p.id == id);
-  
-      if (productA) {
-        const deleteProducts = this.product.filter((p) => p.id != id);
-  
-        this.product = deleteProducts;
-  
-        await this.saveFile();
+  async updateProduct(id, field, value) {
+    try {
+      // Encuentra el índice del producto con el id proporcionado
+      const index = this.products.findIndex((product) => product.id === id);
+
+      if (index !== -1) {
+        // Actualiza el campo del producto con el nuevo valor
+        this.products[index][field] = value;
+
+        await this.saveFileProducts();
       } else {
+        console.log("Producto no encontrado.");
+      }
+    } catch (error) {
+      console.error("Error al actualizar el producto:", error.message);
+    }
+  }
+  async deleteProduct(id) {
+    const productA = this.product.find((p) => p.id == id);
+
+    if (productA) {
+      const deleteProducts = this.product.filter((p) => p.id != id);
+
+      this.products = deleteProducts;
+
+      await this.saveFile();
+    } else {
       console.log("[ERROR]");
     }
   }
@@ -116,3 +115,5 @@ class ProductManager {
 
 const productManagerTest = new ProductManager("./pruebas.txt"); // instancia de la clase
 console.log(productManagerTest.getProducts());
+productManagerTest.updateProduct(1, "price", 25.99);
+console.log(productManagerTest.updateProduct);

@@ -2,13 +2,10 @@
 	{
 		"title": "producto prueba",
 		"description": "Este es un producto prueba",
-		"price": 200,
+		"price": 25.99,
 		"thumbnail": "Sin imagen",
 		"code": "abc123",
 		"stock": 25,
 		"id": 1
 	}
-
 ]
-
-	
