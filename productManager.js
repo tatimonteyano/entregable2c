@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid"); //paquete para generar ids unicos
 const fs = require("fs"); //import
 // Inicializa products como un arreglo vacío.
-class ProductManager {
+export default class ProductManager {
   constructor(fileName) {
     this.path = fileName;
     //aqui iba un this.products = []
@@ -112,8 +112,9 @@ class ProductManager {
     }
   }
 }
+module.exports=ProductManager;
 
-const productManagerTest = new ProductManager("./pruebas.txt"); // instancia de la clase
-console.log(productManagerTest.getProducts());
-productManagerTest.updateProduct(1, "price", 25.99);
-console.log(productManagerTest.updateProduct);
+// const productManagerTest = new ProductManager("./pruebas.txt"); // instancia de la clase
+// console.log(productManagerTest.getProducts());
+// productManagerTest.updateProduct(1, "price", 25.99);
+// console.log(productManagerTest.updateProduct);
